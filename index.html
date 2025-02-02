@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload & Visualize Power BI Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input, button { padding: 10px; margin: 10px; width: 50%; }
+        iframe { width: 90%; height: 500px; border: none; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+
+    <h2>Upload Power BI File & View Report</h2>
+
+    <form id="uploadForm">
+        <input type="file" id="pbixFile" accept=".pbix">
+        <button type="submit">Upload</button>
+    </form>
+
+    <h3>Or Paste Your Power BI Embed Link</h3>
+    <input type="text" id="embedLink" placeholder="Enter Power BI Embed URL">
+    <button onclick="loadDashboard()">Load Dashboard</button>
+
+    <iframe id="powerbiFrame"></iframe>
+
+    <script>
+        function loadDashboard() {
+            let link = document.getElementById("embedLink").value;
+            if (link) {
+                let iframe = document.getElementById("powerbiFrame");
+                iframe.src = link;
+                iframe.style.display = "block";
+            } else {
+                alert("Please enter a valid Power BI embed link!");
+            }
+        }
+
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let file = document.getElementById("pbixFile").files[0];
+            if (file) {
+                alert("File uploaded: " + file.name + "\nPlease publish it to Power BI Service manually.");
+            } else {
+                alert("Please select a .pbix file to upload.");
+            }
+        });
+    </script>
+
+</body>
+</html>
